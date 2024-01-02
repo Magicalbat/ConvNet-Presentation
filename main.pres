@@ -76,4 +76,37 @@ slides = [
             out_spacing = vec2{ 0, 70 }
         }
     },
+    slide {
+        text {
+            text = "Convolutional                "
+            x = 800, center_x = true,
+            y = anim {
+                keys = [ 45, 55 ],
+                time = 0.8, repeat = BOUNCE
+            },
+            col = anim {
+                keys = [
+                    vec4{ 0, .75, 1, 1 },
+                    vec4{ 0, 1, .75, 1 },
+                ],
+                time = 1, repeat = BOUNCE
+            } 
+        },
+        text {
+            text = "               Neural Network"
+            x = 800, center_x = true,
+            y = 50
+        },
+        image {
+            source = "res/conv_net.png",
+            x = 120,
+            y = anim {
+                keys = [1000, 200 ],
+                time = 1,
+                pauses = [ true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            },
+            scale = vec2{ .67, .67 }
+        }
+    },
 ]

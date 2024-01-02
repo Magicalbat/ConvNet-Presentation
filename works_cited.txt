@@ -1,3 +1,4 @@
 (This is not the full MLA formatted version)
 
 http://neuralnetworksanddeeplearning.com/
+https://nafizshahriar.medium.com/what-is-convolutional-neural-network-cnn-deep-learning-b3921bdd82d5
