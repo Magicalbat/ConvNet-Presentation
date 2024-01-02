@@ -13,37 +13,13 @@ typedef struct {
     vec2d out_elem_size;
     vec2d out_spacing;
 
-    mg_arena* arena;
-    ts_tensor* img;
-    ts_tensor* out;
-    ts_network* nn;
-
     vec2 prev_tile;
 } mnist_input;
 
-void mnist_input_init(marena* arena, app_app* app, void* obj) {
-    AP_UNUSED(arena);
-    AP_UNUSED(app);
-
-    mnist_input* mnist = (mnist_input*)obj;
-
-    mga_desc desc = {
-        .desired_max_size = MGA_MiB(16),
-        .desired_block_size = MGA_MiB(1),
-    };
-    mnist->arena = mga_create(&desc);
-
-    mnist->img = ts_tensor_create(mnist->arena, (ts_tensor_shape){ 28, 28, 1 });
-    mnist->out = ts_tensor_create(mnist->arena, (ts_tensor_shape){ 10, 1, 1 });
-    mnist->nn = ts_network_load(mnist->arena, TS_STR8("mnist_network.tsn"), false);
-}
-
-void mnist_input_destroy(void* obj) {
-    mnist_input* mnist = (mnist_input*)obj;
-
-    ts_network_delete(mnist->nn);
-    mga_destroy(mnist->arena);
-}
+static mg_arena* perm_arena = NULL;
+static ts_network* nn = NULL;
+static ts_tensor* img = NULL;
+static ts_tensor* out = NULL;
 
 static const f32 draw_kernel[9] = {
     0.125f, 0.25f, 0.125f,
@@ -57,7 +33,7 @@ void mnist_input_update(app_app* app, void* obj, f32 delta) {
     mnist_input* mnist = (mnist_input*)obj;
 
     if (GFX_IS_KEY_JUST_DOWN(app->win, GFX_KEY_R)) {
-        ts_tensor_fill(mnist->img, 0.0f);
+        ts_tensor_fill(img, 0.0f);
     }
 
     if (GFX_IS_MOUSE_DOWN(app->win, GFX_MB_LEFT)) {
@@ -73,7 +49,7 @@ void mnist_input_update(app_app* app, void* obj, f32 delta) {
                     i32 y = cur_tile.y + y_off - 1;
 
                     if (x >= 0 && x < 28 && y >= 0 && y < 28) {
-                        f32* num = &mnist->img->data[x + y * 28];
+                        f32* num = &img->data[x + y * 28];
                         *num += draw_kernel[x_off + y_off * 3];
                         *num = MIN(1.0f, *num);
                     }
@@ -84,7 +60,7 @@ void mnist_input_update(app_app* app, void* obj, f32 delta) {
         mnist->prev_tile = cur_tile;
     }
 
-    ts_network_feedforward(mnist->nn, mnist->out, mnist->img);
+    ts_network_feedforward(nn, out, img);
 }
 
 void mnist_input_draw(app_app* app, void* obj) {
@@ -104,7 +80,7 @@ void mnist_input_draw(app_app* app, void* obj) {
                 rect_size.x, rect_size.y
             };
 
-            f32 c = mnist->img->data[x + y * 28];
+            f32 c = img->data[x + y * 28];
 
             draw_rectb_push(app->rectb, r, (vec4d){ c, c, c, 1.0f });
         }
@@ -118,19 +94,28 @@ void mnist_input_draw(app_app* app, void* obj) {
             mnist->out_elem_size.x, mnist->out_elem_size.y
         };
         
-        f32 c = mnist->out->data[i];
+        f32 c = out->data[i];
 
         draw_rectb_push(app->rectb, r, (vec4d){ c, c, c, 1.0f });
     }
 }
 
 AP_EXPORT void plugin_init(marena* arena, app_app* app) {
+    mga_desc desc = {
+        .desired_max_size = MGA_MiB(16),
+        .desired_block_size = MGA_MiB(1),
+    };
+    perm_arena = mga_create(&desc);
+
+    img = ts_tensor_create(perm_arena, (ts_tensor_shape){ 28, 28, 1 });
+    out = ts_tensor_create(perm_arena, (ts_tensor_shape){ 10, 1, 1 });
+    nn = ts_network_load(perm_arena, TS_STR8("mnist_network.tsn"), false);
+
+
     obj_desc mnist_input_desc = {
         .name = STR("mnist_input"),
         .obj_size = sizeof(mnist_input),
 
-        .init_func = mnist_input_init,
-        .destroy_func = mnist_input_destroy,
         .update_func = mnist_input_update,
         .draw_func = mnist_input_draw,
 
