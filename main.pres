@@ -12,19 +12,22 @@ slides = [
     global {
         font {
             source = "res/Hack.ttf"
-            sizes = [64, 96],
+            sizes = [70, 96],
             default = true
         }
     },
     slide {
         text {
-            x = 300, y = 100,
-            text = "Hello World\nHello Again",
-            center_y = true, center_x = true
-            col = vec4{ 0, 1, 1, 1 }
+            x = 950, y = 110,
+            text = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9",
+            center_x = true
+            col = vec4{ 1, 1, 1, 1 }
         },
         mnist_input {
-            rect = vec4{ 100, 100, 500, 500 }
+            rect = vec4{ 100, 100, 700, 700 },
+            out_pos = vec2{ 850, 105 },
+            out_elem_size = vec2{ 60, 60 },
+            out_spacing = vec2{ 0, 70 }
         }
     },
 ]

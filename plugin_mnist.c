@@ -45,12 +45,18 @@ void mnist_input_destroy(void* obj) {
     mga_destroy(mnist->arena);
 }
 
+static const f32 draw_kernel[9] = {
+    0.125f, 0.25f, 0.125f,
+    0.25f, 1.0f, 0.25f,
+    0.125f, 0.25f, 0.125f,
+};
+
 void mnist_input_update(app_app* app, void* obj, f32 delta) {
     AP_UNUSED(delta);
 
     mnist_input* mnist = (mnist_input*)obj;
 
-    if (GFX_IS_KEY_JUST_DOWN(app->win, GFX_KEY_SPACE)) {
+    if (GFX_IS_KEY_JUST_DOWN(app->win, GFX_KEY_R)) {
         ts_tensor_fill(mnist->img, 0.0f);
     }
 
@@ -61,8 +67,17 @@ void mnist_input_update(app_app* app, void* obj, f32 delta) {
         };
 
         if (cur_tile.x != mnist->prev_tile.x || cur_tile.y != mnist->prev_tile.y) {
-            if (cur_tile.x >= 0 && cur_tile.x < 28 && cur_tile.y >= 0 && cur_tile.y < 28) {
-                mnist->img->data[(u32)cur_tile.x + (u32)cur_tile.y * 28] = 1.0f;
+            for (u32 y_off = 0; y_off < 3; y_off++) {
+                for (u32 x_off = 0; x_off < 3; x_off++) {
+                    i32 x = cur_tile.x + x_off - 1;
+                    i32 y = cur_tile.y + y_off - 1;
+
+                    if (x >= 0 && x < 28 && y >= 0 && y < 28) {
+                        f32* num = &mnist->img->data[x + y * 28];
+                        *num += draw_kernel[x_off + y_off * 3];
+                        *num = MIN(1.0f, *num);
+                    }
+                }
             }
         }
 
@@ -70,13 +85,12 @@ void mnist_input_update(app_app* app, void* obj, f32 delta) {
     }
 
     ts_network_feedforward(mnist->nn, mnist->out, mnist->img);
-
-    printf("%u\n", ts_tensor_argmax(mnist->out).x);
 }
 
 void mnist_input_draw(app_app* app, void* obj) {
     mnist_input* mnist = (mnist_input*)obj;
 
+    // Drawing digit
     vec2 rect_size = {
         mnist->display_rect.z / 28,
         mnist->display_rect.w / 28
@@ -94,6 +108,19 @@ void mnist_input_draw(app_app* app, void* obj) {
 
             draw_rectb_push(app->rectb, r, (vec4d){ c, c, c, 1.0f });
         }
+    }
+
+    // Drawing network output
+    for (u32 i = 0; i < 10; i++) {
+        rect r = {
+            mnist->out_pos.x + mnist->out_spacing.x * i,
+            mnist->out_pos.y + mnist->out_spacing.y * i,
+            mnist->out_elem_size.x, mnist->out_elem_size.y
+        };
+        
+        f32 c = mnist->out->data[i];
+
+        draw_rectb_push(app->rectb, r, (vec4d){ c, c, c, 1.0f });
     }
 }
 
