@@ -5,10 +5,10 @@
  * Based on code from https://www.pcg-random.org
  */
 
-#ifndef PRNG_H
-#define PRNG_H
+#ifndef TS_PRNG_H
+#define TS_PRNG_H
 
-#include "base_defs.h"
+#include "base_def.h"
 
 /**
  * @brief Internal state for pseudorandom number generator.

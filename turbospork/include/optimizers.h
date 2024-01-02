@@ -3,10 +3,10 @@
  * @brief Parameter optimizers for the neural networks
  */
 
-#ifndef OPTIMIZERS_H
-#define OPTIMIZERS_H
+#ifndef TS_OPTIMIZERS_H
+#define TS_OPTIMIZERS_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "os.h"
 #include "tensor.h"
 

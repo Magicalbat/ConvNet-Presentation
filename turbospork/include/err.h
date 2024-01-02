@@ -3,10 +3,10 @@
  * @brief Error handling
  */
 
-#ifndef ERR_H
-#define ERR_H
+#ifndef TS_ERR_H
+#define TS_ERR_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "str.h"
 
 /**

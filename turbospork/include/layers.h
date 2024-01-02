@@ -3,12 +3,12 @@
  * @brief Neural network layers
  */
 
-#ifndef LAYERS_H
-#define LAYERS_H
+#ifndef TS_LAYERS_H
+#define TS_LAYERS_H
 
 #include "mg/mg_arena.h"
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "str.h"
 #include "tensor.h"
 #include "optimizers.h"

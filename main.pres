@@ -1,6 +1,7 @@
 plugins = [
     "plugin_basic",
-    "plugin_text"
+    "plugin_text",
+    "plugin_network",
 ],
 settings = [
     reference_dim = vec2{ 1600, 900 },

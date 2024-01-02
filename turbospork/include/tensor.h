@@ -3,10 +3,10 @@
  * @brief 3D tensors
  */
 
-#ifndef TENSOR_H
-#define TENSOR_H
+#ifndef TS_TENSOR_H
+#define TS_TENSOR_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "str.h"
 #include "mg/mg_arena.h"
 

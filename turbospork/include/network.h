@@ -3,10 +3,10 @@
  * @brief Neural networks
  */
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#ifndef TS_NETWORK_H
+#define TS_NETWORK_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "str.h"
 #include "mg/mg_arena.h"
 #include "tensor.h"

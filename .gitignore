@@ -1,2 +1,9 @@
 bin
+lib
+.cache
+bin-int
+compile_commands.json
+Makefile
+**.make
+**.tsn
 

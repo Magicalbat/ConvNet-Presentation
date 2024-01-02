@@ -3,10 +3,10 @@
  * @brief Costs of neural networks
  */
 
-#ifndef COST_H
-#define COST_H
+#ifndef TS_COST_H
+#define TS_COST_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "tensor.h"
 
 /**

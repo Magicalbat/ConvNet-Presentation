@@ -3,10 +3,10 @@
  * @brief Operating system specific functions
  */
 
-#ifndef OS_H
-#define OS_H
+#ifndef TS_OS_H
+#define TS_OS_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "str.h"
 #include "mg/mg_arena.h"
 

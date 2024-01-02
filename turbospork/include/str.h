@@ -5,12 +5,12 @@
  * This is heavily based on the string header in the [Mr 4th programming series](https://www.youtube.com/@Mr4thProgramming)
  */
 
-#ifndef STR_H
-#define STR_H
+#ifndef TS_STR_H
+#define TS_STR_H
 
 #include <stdarg.h>
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "mg/mg_arena.h"
 
 /**

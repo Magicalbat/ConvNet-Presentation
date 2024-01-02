@@ -7,10 +7,10 @@
  * Values out of bounds in each image are assumed to be zero
  */ 
 
-#ifndef IMG_H
-#define IMG_H
+#ifndef TS_IMG_H
+#define TS_IMG_H
 
-#include "base_defs.h"
+#include "base_def.h"
 #include "tensor.h"
 
 /// Sampling methods for image transformations
