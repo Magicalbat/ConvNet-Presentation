@@ -1,7 +1,7 @@
 workspace "Presentation"
     configurations { "debug", "release" }
 
-project "plugin_network"
+project "plugin_mnist"
     language "C"
     location "."
     kind "SharedLib"
@@ -11,7 +11,7 @@ project "plugin_network"
     targetprefix ""
 
     files {
-        "plugin_network.c"
+        "plugin_mnist.c"
     }
 
     includedirs {
