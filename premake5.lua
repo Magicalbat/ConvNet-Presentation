@@ -17,20 +17,19 @@ project "plugin_mnist"
     includedirs {
         "AnimatedPresentation/app/include",
         "AnimatedPresentation/core/include",
-        "turbospork",
         "turbospork/include",
         "turbospork/third_party"
     }
 
     links {
-        "./lib/TurboSpork",
+        "lib/TurboSpork",
     }
-
-    -- TODO: platform independent?
-    buildoptions { "-fPIC" }
 
     filter "system:linux"
         linkoptions { "-Lbin", "-l:core.so" }
+
+    filter "system:windows"
+        links { "bin/core" }
 
     filter { }
 
@@ -50,6 +49,7 @@ project "plugin_mnist"
         defines { "NDEBUG" }
 
     filter "system:linux"
+            pic "On"
             links {
                 "m", "X11", "GL", "GLX", "dl"
             }
@@ -58,6 +58,6 @@ project "plugin_mnist"
         systemversion "latest"
 
         links {
-            "gdi32", "kernel32", "user32", "winmm", "opengl32"
+            "gdi32", "kernel32", "user32", "winmm", "opengl32", "bcrypt"
         }
 

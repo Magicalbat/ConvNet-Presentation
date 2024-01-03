@@ -99,9 +99,9 @@ slides = [
         },
         image {
             source = "res/conv_net.png",
-            x = 120,
+            x = 150,
             y = anim {
-                keys = [1000, 200 ],
+                keys = [ 1000, 200 ],
                 time = 1,
                 pauses = [ true, false ],
                 bezier = vec4{ .42,0,.58,1 }
@@ -109,4 +109,40 @@ slides = [
             scale = vec2{ .67, .67 }
         }
     },
+    slide {
+        text {
+            text = "Convolutions            ",
+            x = 800, center_x = true,
+            y = 50
+        },
+        text {
+            text = "             / Filtering",
+            x = 800, center_x = true,
+            y = anim {
+                keys = [ -100, 50 ],
+                time = .75,
+                pauses = [ true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            }
+        },
+
+        image {
+            source = "res/sobel_before.png",
+            x = 100,
+            y = anim {
+                keys = [ 1000, 1000, 200 ],
+                times = [ 0, 0, 0.75 ],
+                pauses = [ true, true, false ]
+            },
+        },
+        image {
+            source = "res/sobel_after.png",
+            x = 850,
+            y = anim {
+                keys = [ 1000, 1000, 1000, 200 ],
+                times = [ 0, 0, 0, 0.75 ],
+                pauses = [ true, true, true, false ]
+            },
+        },
+    }
 ]
