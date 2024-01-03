@@ -241,5 +241,28 @@ slides = [
             x = 800, y = 450,
             center_x = true, center_y = true
         }
+    },
+    slide {
+        image {
+            source = "res/works_cited.png",
+            scale = vec2{ 1.1, 1.1 },
+            x = 400, y = 50
+        }
+    },
+    slide {
+        text {
+            x = 1400,
+            y = 110,
+            text = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9",
+            center_x = true,
+            font_size = 70,
+            col = vec4{ 1, 1, 1, 1 }
+        },
+        mnist_input {
+            rect = vec4{ 450, 100, 700, 700 },
+            out_pos = vec2{ 1300, 105 },
+            out_elem_size = vec2{ 60, 60 },
+            out_spacing = vec2{ 0, 70 }
+        }
     }
 ]
