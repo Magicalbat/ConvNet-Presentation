@@ -78,39 +78,6 @@ slides = [
     },
     slide {
         text {
-            text = "Convolutional                "
-            x = 800, center_x = true,
-            y = anim {
-                keys = [ 45, 55 ],
-                time = 0.8, repeat = BOUNCE
-            },
-            col = anim {
-                keys = [
-                    vec4{ 0, .75, 1, 1 },
-                    vec4{ 0, 1, .75, 1 },
-                ],
-                time = 1, repeat = BOUNCE
-            } 
-        },
-        text {
-            text = "               Neural Network"
-            x = 800, center_x = true,
-            y = 50
-        },
-        image {
-            source = "res/conv_net.png",
-            x = 150,
-            y = anim {
-                keys = [ 1000, 200 ],
-                time = 1,
-                pauses = [ true, false ],
-                bezier = vec4{ .42,0,.58,1 }
-            },
-            scale = vec2{ .67, .67 }
-        }
-    },
-    slide {
-        text {
             text = "Convolutions            ",
             x = 800, center_x = true,
             y = 50
@@ -144,5 +111,49 @@ slides = [
                 pauses = [ true, true, true, false ]
             },
         },
+    },
+    slide {
+        text {
+            text = "Convolutional                "
+            x = 800, center_x = true,
+            y = anim {
+                keys = [ 45, 55 ],
+                time = 0.8, repeat = BOUNCE
+            },
+            col = anim {
+                keys = [
+                    vec4{ 0, .75, 1, 1 },
+                    vec4{ 0, 1, .75, 1 },
+                ],
+                time = 1, repeat = BOUNCE
+            } 
+        },
+        text {
+            text = "               Neural Network"
+            x = 800, center_x = true,
+            y = 50
+        },
+        image {
+            source = "res/conv_net.png",
+            x = 150,
+            y = anim {
+                keys = [ 1000, 200 ],
+                time = 1,
+                pauses = [ true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            },
+            scale = vec2{ .67, .67 }
+        }
+    },
+    slide {
+        mnist_filters {
+            grid_size = vec2{ 8, 4 },
+            filter_size = vec2{ 50, 50 },
+            grid_spacing = vec2{ 60, 60 }
+        },
+
+        mnist_output {
+            rect = vec4{ 800, 100, 500, 500 }
+        }
     }
 ]

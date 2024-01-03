@@ -275,12 +275,74 @@ typedef struct {
     };
 } ts_layer_desc;
 
-/**
- * @brief Layer structure
- *
- * Defined in layers_internal.h (in src)
- */
-typedef struct ts_layer ts_layer;
+typedef struct {
+    ts_tensor_shape prev_shape;
+} _layer_reshape_backend;
+
+typedef struct {
+    ts_tensor* weight;
+    ts_tensor* bias;
+
+    // Training mode
+    ts_param_change weight_change;
+    ts_param_change bias_change;
+} _layer_dense_backend;
+
+typedef struct {
+    ts_layer_activation_type type;
+} _layer_activation_backend;
+
+typedef struct {
+    ts_f32 keep_rate;
+} _layer_dropout_backend;
+
+typedef struct {
+    ts_tensor_shape prev_shape;
+} _layer_flatten_backend;
+
+typedef struct {
+    ts_tensor_shape input_shape;
+
+    ts_tensor_shape pool_size;
+    ts_layer_pooling_type type;
+} _layer_pooling_2d_backend;
+
+typedef struct {
+    ts_u32 kernel_size;
+
+    // Shape is (kernel_size * kernel_size, in_filters, out_filters)
+    ts_tensor* kernels;
+    // Shape is out_shape
+    ts_tensor* biases; 
+
+    ts_u32 stride;
+    ts_u32 padding;
+
+    ts_tensor_shape input_shape;
+
+    // Training mode
+    ts_param_change kernels_change;
+    ts_param_change biases_change;
+} _layer_conv_2d_backend;
+
+typedef struct ts_layer {
+    // Initialized in layer_create
+    ts_layer_type type;
+    ts_b32 training_mode;
+
+    // Should be set by layer in create function
+    ts_tensor_shape shape;
+
+    union {
+        _layer_reshape_backend reshape_backend;
+        _layer_dense_backend dense_backend;
+        _layer_activation_backend activation_backend;
+        _layer_dropout_backend dropout_backend;
+        _layer_flatten_backend flatten_backend;
+        _layer_pooling_2d_backend pooling_2d_backend;
+        _layer_conv_2d_backend conv_2d_backend;
+    };
+} ts_layer;
 
 /// Node for `ts_layers_cache` singly linked list
 typedef struct ts_layers_cache_node {
