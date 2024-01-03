@@ -146,14 +146,100 @@ slides = [
         }
     },
     slide {
+        text {
+            text = "What are the actual filters?"
+            x = 800, center_x = true,
+            y = 50
+        },
         mnist_filters {
             grid_size = vec2{ 8, 4 },
-            filter_size = vec2{ 50, 50 },
-            grid_spacing = vec2{ 60, 60 }
+            grid_start = anim {
+                keys = [ vec2{ -1000, 200}, vec2{ 320, 200 } ],
+                time = 1,
+                pauses = [ true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            }
+            filter_size = vec2{ 100, 100 },
+            grid_spacing = vec2{ 120, 120 }
+        },
+    },
+    slide {
+        text {
+            text = "What about the output of the filters?"
+            x = 800, center_x = true,
+            y = 50
         },
 
         mnist_output {
-            rect = vec4{ 800, 100, 500, 500 }
+            rect = anim {
+                keys = [
+                    vec4 { 800, 1000, 0, 0 },
+                    vec4 { 500, 150, 600, 600 }
+                ],
+                time = 1,
+                pauses = [ true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            }
+        }
+    },
+    slide {
+        text {
+            text = "What gives?"
+            x = 800, center_x = true,
+            y = 100
+        },
+        text {
+            text = "Why does it all look random?"
+            x = 800, center_x = true,
+            y = anim {
+                keys = [ 1000, 400 ],
+                time = 1,
+                pauses = [ true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            }
+        },
+        text {
+            text = "How do we know how these actually work?"
+            x = 800, center_x = true,
+            y = anim {
+                keys = [ 1000, 1000, 700 ],
+                times = [ 0, 0, 1 ],
+                pauses = [ true, true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            }
+        },
+
+        bezier {
+            p0 = vec2{ 200, 720 },
+            p1 = vec2{ 200, 720 },
+
+            p2 = anim {
+                keys = [ vec2{ 200, 720 }, vec2{ 200, 720 }, vec2{ 200, 720 }, vec2{ 1400, 720 }],
+                times = [ 0, 0, 0, 1 ],
+                pauses = [ true, true, true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            },
+            p3 = anim {
+                keys = [ vec2{ 200, 720 }, vec2{ 200, 720 }, vec2{200, 720}, vec2{ 1400, 720 }],
+                times = [ 0, 0, 0, 1 ],
+                pauses = [ true, true, true, false ],
+                bezier = vec4{ .42,0,.58,1 }
+            }
+        }
+    },
+    slide {
+        image {
+            source = "res/quote.png",
+            x = 100, y = 200,
+            scale = vec2{ 1.5, 1.5 }
+        }
+    },
+    slide {
+        text {
+            text = "Where to go from here?"
+            font_size = 96,
+            x = 800, y = 450,
+            center_x = true, center_y = true
         }
     }
 ]
