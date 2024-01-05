@@ -44,7 +44,7 @@ typedef enum {
  * @brief Parameter initialization types
  *
  * Layers will initialize trainable parameters with one of these types <br>
- * See `ts_param_init` for more 
+ * See `ts_param_init` for more
  */
 typedef enum {
     /// Does nothing to param
@@ -108,7 +108,7 @@ typedef enum {
 } ts_layer_pooling_type;
 
 
-/// Input layer description 
+/// Input layer description
 typedef struct {
     /**
      * @brief Shape of input layer
